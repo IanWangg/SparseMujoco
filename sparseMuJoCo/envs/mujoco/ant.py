@@ -3,7 +3,8 @@ from gym import utils
 from gym.envs.mujoco import mujoco_env
 
 class AntEnv(mujoco_env.MujocoEnv, utils.EzPickle):
-    def __init__(self):
+    def __init__(self, threshold):
+        self.threshold = threshold
         mujoco_env.MujocoEnv.__init__(self, 'ant.xml', 5)
         utils.EzPickle.__init__(self)
 
@@ -20,7 +21,8 @@ class AntEnv(mujoco_env.MujocoEnv, utils.EzPickle):
         """
         Sparse reward
         """
-        reward  = int( (xposafter - xposbefore) > 0.15 ) 
+        # reward  = int( (xposafter - xposbefore) > 0.15 ) 
+        reward  = int( (xposafter - xposbefore) > self.threshold ) 
         state = self.state_vector()
         notdone = np.isfinite(state).all() \
             and state[2] >= 0.2 and state[2] <= 1.0

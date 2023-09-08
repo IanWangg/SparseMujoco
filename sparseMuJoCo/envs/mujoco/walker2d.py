@@ -4,7 +4,8 @@ from gym.envs.mujoco import mujoco_env
 
 class Walker2dEnv(mujoco_env.MujocoEnv, utils.EzPickle):
 
-    def __init__(self):
+    def __init__(self, threshold):
+        self.threshold = threshold
         mujoco_env.MujocoEnv.__init__(self, "walker2d.xml", 4)
         utils.EzPickle.__init__(self)
 
@@ -19,7 +20,8 @@ class Walker2dEnv(mujoco_env.MujocoEnv, utils.EzPickle):
         """
         Sparse reward
         """
-        reward = int( abs(posafter) >= 6. )
+        # reward = int( abs(posafter) >= 6. )
+        reward = int( abs(posafter) >= self.threshold )
 
         done = not (height > 0.8 and height < 2.0 and
                     ang > -1.0 and ang < 1.0)

@@ -2,8 +2,9 @@ import numpy as np
 from gym import utils
 from gym.envs.mujoco import mujoco_env
 
-class HopperEnv(mujoco_env.MujocoEnv, utils.EzPickle):
-    def __init__(self):
+class HopperEnv(mujoco_env.MujocoEnv, utils.EzPickle, object):
+    def __init__(self, threshold):
+        self.threshold = threshold
         mujoco_env.MujocoEnv.__init__(self, 'hopper.xml', 4)
         utils.EzPickle.__init__(self)
 
@@ -15,7 +16,8 @@ class HopperEnv(mujoco_env.MujocoEnv, utils.EzPickle):
         # reward = (posafter - posbefore) / self.dt
         # reward += alive_bonus
         # reward -= 1e-3 * np.square(a).sum()
-        reward = int( abs(posafter) >= 3.)
+        # reward = int( abs(posafter) >= 3.)
+        reward = int( abs(posafter) >= self.threshold)
         s = self.state_vector()
         done = not (np.isfinite(s).all() and (np.abs(s[2:]) < 100).all() and
                     (height > .7) and (abs(ang) < .2))

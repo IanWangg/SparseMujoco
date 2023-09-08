@@ -3,7 +3,8 @@ from gym import utils
 from gym.envs.mujoco import mujoco_env
 
 class HalfCheetahEnv(mujoco_env.MujocoEnv, utils.EzPickle):
-    def __init__(self):
+    def __init__(self, threshold):
+        self.threshold = threshold
         mujoco_env.MujocoEnv.__init__(self, 'half_cheetah.xml', 5)
         utils.EzPickle.__init__(self)
 
@@ -14,7 +15,7 @@ class HalfCheetahEnv(mujoco_env.MujocoEnv, utils.EzPickle):
         #################################################
         ctrl = False
         relu = False
-        threshold = 30.0
+        threshold = self.threshold
         #################################################
         xposbefore = self.sim.data.qpos[0]
         self.do_simulation(action, self.frame_skip)

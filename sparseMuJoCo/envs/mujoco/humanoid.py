@@ -8,7 +8,8 @@ def mass_center(model, sim):
     return (np.sum(mass * xpos, 0) / np.sum(mass))[0]
 
 class HumanoidEnv(mujoco_env.MujocoEnv, utils.EzPickle):
-    def __init__(self):
+    def __init__(self, threshold):
+        self.threshold = threshold
         mujoco_env.MujocoEnv.__init__(self, 'humanoid.xml', 5)
         utils.EzPickle.__init__(self)
 

@@ -19,7 +19,7 @@ class Walker2dEnv(mujoco_env.MujocoEnv, utils.EzPickle):
         """
         Sparse reward
         """
-        reward = int( abs(posafter) >= 6. )
+        reward = int( abs(posafter) >= 5. )
 
         done = not (height > 0.8 and height < 2.0 and
                     ang > -1.0 and ang < 1.0)

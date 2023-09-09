@@ -20,7 +20,7 @@ class AntEnv(mujoco_env.MujocoEnv, utils.EzPickle):
         """
         Sparse reward
         """
-        reward  = int( (xposafter - xposbefore) > 0.15 ) 
+        reward  = int( (xposafter - xposbefore) > 0.2 ) 
         state = self.state_vector()
         notdone = np.isfinite(state).all() \
             and state[2] >= 0.2 and state[2] <= 1.0

@@ -23,7 +23,7 @@ class AntEnv(mujoco_env.MujocoEnv, utils.EzPickle):
         reward  = int( (xposafter - xposbefore) > 0.15 ) 
         state = self.state_vector()
         notdone = np.isfinite(state).all() \
-            and state[2] >= 0.2 and state[2] <= 2.0
+            and state[2] >= 0.2 and state[2] <= 1.0
         done = not notdone
         ob = self._get_obs()
         return ob, reward, done, dict(

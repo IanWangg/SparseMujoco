@@ -14,7 +14,7 @@ class HalfCheetahEnv(mujoco_env.MujocoEnv, utils.EzPickle):
         #################################################
         ctrl = False
         relu = False
-        threshold = 30.0
+        threshold = 15.0
         #################################################
         xposbefore = self.sim.data.qpos[0]
         self.do_simulation(action, self.frame_skip)
